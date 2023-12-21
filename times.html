@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="language/html/css/style.css" rel="stylesheet" />
+    <style>
+        div {
+
+            width: 200px;
+            height: 180px;
+
+        }
+
+        #box {
+            width: 200px;
+            padding: 15px;
+            margin: 20px;
+        }
+    </style>
+    <title>九九乘法表</title>
+</head>
+
+<body>
+
+    <div name="box">
+        <hr>
+        <p>hello</p>
+    </div>
+    <script>
+        var str = "<table width='600' align='center' border='1'>";
+        for (var i = 1; i < 10; i++) {
+            str += "<str>";
+            for (var j = 1; j <= i; j++) {
+                str += "<td>" + j + "&times;" + i + "=" + i * j + "</td>";
+            }
+            str += "</tr>";
+        }
+        str += "</table>"
+        document.write(str);
+        var x = 11; var y = "number"; var m = x + y;
+        z = 2 * (1 + 2 * 3)
+        alert(z)
+    </script>
+    <form>
+        First name:<br>
+        <input type="text" name="firstname" value="howhow" size="10" maxlength="6">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname">
+    </form>
+    <table border-collapse:collapse border="1" cellspacing="10" cellpadding="20">
+        <tr><td>1</td><td>2</td></tr>
+    </table>
+</body>
+
+</html>
