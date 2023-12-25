@@ -1,6 +1,7 @@
 JavaScript 语言的历史
 网道（WangDoc.com），互联网文档计划
 https://wangdoc.com/javascript/basic/history
+https://cn.history.js.org/
 目录 [隐藏]
 诞生
 JavaScript 与 Java 的关系
