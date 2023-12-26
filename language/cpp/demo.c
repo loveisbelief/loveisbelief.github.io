@@ -15,7 +15,7 @@ main()
 		if (old < p->age)
 		{
 			q = p;
-			//_________;
+			old = p->age;
 		}
 	printf("%s %d", q->name,q->age);
 }
