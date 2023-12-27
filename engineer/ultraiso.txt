@@ -1,0 +1,17 @@
+UltraIso是一个强大的ISO文件编辑器，功能不多说。
+好多人不知道，这个UltraIso有2个版本——中文版和多国语言PE版！
+而且这两个版本注册码不通用！
+现在我把这两个版本的注册码都分享给大家：
+https://www.aihao.cc/thread-86086-1-1.html?_dsign=67ad8375
+最新9.7.6.3829版请到官网下载： http://www.ezbsystems.com/ultraiso/
+注册码：
+
+
+中文版
+name:        王涛
+serial:        7C81-1689-4046-626F
+
+
+多国语言PE版
+name:        ru-board
+serial:        8F5C-FB35-D4BD-943D

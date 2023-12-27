@@ -1,22 +1,18 @@
-static struct man {
-	char name[20];
-	int age;
-}person[] = { "li=ming",18,
-		  "wang-hua",19,
-		   "zhang-ping",20
-};
+#include<stdio.h>
+#include<limits.h>
 
-main()
+int main()
 {
-	struct man* p, * q;
-	int old = 0;
-	p = person;
-	for (; p<p+3; p++)
-		if (old < p->age)
-		{
-			q = p;
-			old = p->age;
-		}
-	printf("%s %d", q->name,q->age);
+	float A$ ,s= 0;
+	A$=5;
+	int i = 1;
+	int a=sizeof(short);
+	int b=sizeof(long);
+	char c='\xff';
+	while (i <= 10)
+	{
+		s = s + 1.0/ i;
+		i++;
+	}
+	printf("%d\t%c",a,c);
 }
-
