@@ -1,0 +1,3 @@
+ISBN:987302402633,Name:UML,Price:49.000000,Author:侯爱民,publish:清华大学出版社
+ISBN:987302402635,Name:数据结构,Price:42.000000,Author:严蔚敏,publish:清华大学出版社
+ISBN:987302402636,Name:c 语言程序设计,Price:39.000000,Author:谭浩强,publish:清华大学出版社

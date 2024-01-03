@@ -1,0 +1,36 @@
+Visual Studio 4.0                                  下载地址
+Visual Studio 97 版本5.0                      下载地址
+Visual Studio 6.0                                  下载地址
+Visual Studio 2002 版本 7.0                 下载地址
+Visual Studio 2003 版本 7.1                 下载地址
+Visual Studio 2005 版本 8.0                 下载地址
+Visual Studio 2008 版本 9.0                 下载地址
+Visual Studio 2010 版本 10.0               下载地址
+Visual Studio 2012 版本 11.0               下载地址
+Visual Studio 2013 版本 12.0               下载地址
+Visual Studio 2015 版本 14.0               下载地址
+Visual Studio 2017 版本 15.9.X            下载地址
+Visual Studio 2017 for Mac 版本 7.8.3 下载地址
+Visual Studio 2019 版本 16.1.X            下载地址
+Visual Studio 2019 for Mac 版本 8.0    下载地址
+————————————————
+版权声明：本文为CSDN博主「超级任性」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/StudyOgre/article/details/88681890
+
+Visual Studio 2017下载地址和安装教程（图解版）
+Visual Studio 2017不仅支持C#、C++、Python、Visual Basic、Node.js、HTML、JavaScript等各大编程语言，还能开发 iOS、Android 的移动平台应用，Visual Studio 2017 甚至还自带了iOS模拟器（之前为MAC独享的开发环境）。
+
+Visual Studio 2017版本同15版一样，细分为三个版本，分别是：
+
+社区版（Community）：免费提供给单个开发人员，给予初学者及大部分程序员支持，可以无任何经济负担、合法地使用。
+企业版：为正规企业量身定做，能够提供点对点的解决方案，充分满足企业的需求。企业版官方售价 2999美元/年或者 250美元/月。
+专业版：适用于专业用户或者小团体。虽没有企业版全面的功能，但相比于免费的社区版，有更强大的功能。专业版官方售价 539美元/年 或者 45美元/月。
+对于大部分程序开发，以上版本区别不大，免费的社区版一样可以满足程序员需求，所以我推荐大家使用社区版，无需破解，轻松安装，快速使用。
+
+Visual Studio 2015 Community ISO 文件实际的下载地址为：http://download.microsoft.com/download/0/B/C/0BC321A4-013F-479C-84E6-4A2F90B11269/vs2015.com_enu.iso
+
+vc2008
+https://myvs.download.prss.microsoft.com/dbazure/en_visual_studio_2008_express_x86_dvd_x13-97868.iso?t=3a317120-b413-4a39-a9c0-0d0f5a14f8f6&e=1704242716&h=196f76f3e711679fb45c7178b192bb5cf51e51ac94dee7ee3ab015b72f2b091e&su=1
+
+vc2005
+https://myvs.download.prss.microsoft.com/dbazure/en_vc_2005_express.iso?t=460545a7-3eb2-44c6-9f60-1286bfa3fb25&e=1704242769&h=0afad896ea673a5ac15089771cf702e17f41324a702f05917760bbd209d6ced7&su=1

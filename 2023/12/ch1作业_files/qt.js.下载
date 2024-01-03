@@ -1,0 +1,16 @@
+//1.当您得到集成sdk代码地址以后，在页面head标签内加入集成代码，确保aplus_queue不被污染
+
+(function(w, d, s, q) { 
+	w[q] =w[q] || []; 
+	var f=d.getElementsByTagName(s)[0],j=d.createElement(s); 
+	j.async=true; 
+	j.id='beacon-aplus'; 
+	j.src='https://d.alicdn.com/alilog/mlog/aplus/204458013.js'; 
+	f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'aplus_queue');
+
+//集成应用的appKey
+aplus_queue.push({ action: 'aplus.setMetaInfo', arguments: ['appKey', 'wfh941bspd2cigzrorkqa9el']  }) 
+
+//添加日志域名埋点
+aplus_queue.push({ action: 'aplus.setMetaInfo', arguments: ['aplus-rhost-v', 'qtedu.om.moe.edu.cn']  });

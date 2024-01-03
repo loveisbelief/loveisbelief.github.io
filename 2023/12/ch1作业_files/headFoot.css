@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*广告*/
+.ggAdvert{ min-width:1280px; width:100%; height:80px; background:url(../images/clipboard.png) no-repeat center top; position:relative;}
+.ggAdvert a{ display:block; height:80px;}
+.ggAdvert .ggAdvert_close{ width:24px; height:24px; background:url(../images/ggAdvert_close.png) no-repeat; position:absolute; right:10px; top:5px;}
+
+
+/*header*/
+.qHeader{ min-width:1280px;background:#FFFFFF;padding:7px 0;}
+.qHeader .qWrap{ width:1280px; height:66px; margin:0 auto;}
+.qHeader .qLogo{ width:134px; height:46px; margin:10px 0 0 0; background:url(../images/headLogo.png) no-repeat; display:block;}
+.qHeader .qNav{ margin-left:42px; height:66px; line-height:66px; font-size:16px; color:#333333;}
+.qHeader .qNav li{ margin-left:24px; float:left;}
+.qHeader .qNav li a{ color:#333333;}
+.qHeader .qNav li.active,.qHeader .qNav li a:hover,.qHeader .qNav li.active a,.qHeader .qNav li.active a:hover{ color:#1e7dcc;}
+.qHeader .qLogin{ height:22px; line-height:22px; font-size:14px; color:#333333; margin:22px 0 0 30px;}
+.qHeader .qLogin img{ width:22px; height:22px; float:left; border-radius:50%; margin-right:10px;}
+
+.qHeader .qSearch{ width:344px; height:30px; margin-top:18px; background:#f3f3f3; border-radius:30px; overflow:hidden;}
+.qHeader .qSearch_input{ width:240px; height:20px; line-height:20px; padding:5px 20px; border:0; background:none; font-size:14px; color:#333333;}
+.qHeader .qSearch_input::-webkit-input-placeholder {color: #bcbcbc;text-overflow:ellipsis;}
+.qHeader .qSearch_input:-moz-placeholder{color:#bcbcbc !important;text-overflow:ellipsis;}
+.qHeader .qSearch_input::-moz-placeholder{color:#bcbcbc !important;text-overflow:ellipsis;}
+.qHeader .qSearch_input:-ms-input-placeholder{color:#bcbcbc !important;text-overflow:ellipsis;}
+.qHeader .qSearch_bnt{ width:60px; height:30px; background:#187fd3 url(../images/search-ico.png) no-repeat center center; border-radius:30px; border:0 none; cursor:pointer;}
+
+
+/*footer*/
+.qFooter{ margin-top:40px; min-width:1280px; width:100%; background:#4f4f4f; line-height:22px; padding:40px 0; font-size:12px; color:#c2c2c2; text-align:center;}
+.qFooter .foot_gywm{ font-size:14px; margin-bottom:20px;}
+.qFooter .foot_gywm a{ color:#FFF;}
+.qFooter .foot_gywm span{ color:#FFF; margin:0 15px;}
+.qFooter .qfoot_logo{ line-height:42px; margin-top:20px;}
+.qFooter .qfoot_logo img{ width:42px; height:42px; margin-right:10px; border-radius:4px; vertical-align:top;}
+.qFooter .qfoot_logo .qfoot_span{ margin:0 20px;}
+
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0046)https://www.xueyinonline.com/portal/new-header -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="baidu-site-verification" content="code-4AgAQ8dRxw">
+<title></title>
+<link rel="stylesheet" type="text/css" href="./global.css">
+<link rel="stylesheet" type="text/css" href="./headFoot.css">
+<script async="" id="beacon-aplus" src="./204458013.js.下载"></script><script src="./qt.js.下载" type="text/javascript" charset="utf-8"></script>
+
+<script async="" src="./rcfg.js.下载" id="aplus-setting" type="text/javascript" charset="utf-8"></script></head>
+<body style="zoom: 1;">
+    <div class="qHeader">
+        <div class="qWrap">
+            <a class="qLogo fl" href="https://www.xueyinonline.com/" target="_parent"></a>
+            <ul class="qNav fl">
+                                    <li><a target="_parent" href="https://www.xueyinonline.com/mooc/courselist">课程</a></li>
+                    <li><a target="_blank" href="https://www.xueyinonline.com/loginforworld?type=2">教学资源库</a></li>
+                    <li><a target="_parent" href="https://www.xueyinonline.com/portal/teach-package">示范教学包</a></li>
+                    <li><a target="_blank" href="https://www.xueyinonline.com/loginforworld?type=3">数字教材</a></li>
+                    <li><a target="_parent" href="https://www.xueyinonline.com/portal/project">项目</a></li>
+                    <li><a target="_parent" href="https://www.xueyinonline.com/portal/lianmeng">合作单位</a></li>
+                    <li><a target="_parent" href="https://www.xueyinonline.com/portal/liaojie?curtitle=1">关于我们</a></li>
+                            </ul>
+            <div class="qLogin fr">
+                                    <div class="qLogin_after">
+                        <a target="_parent" href="https://www.xueyinonline.com/loginforworld?refer=https%3A%2F%2Fi.mooc.chaoxing.com" id="tospace">
+                            <img src="./97374410_80">
+                                                            </a><a href="https://www.xueyinonline.com/logout" id="logout" target="_top">退出</a>
+                                                    
+                    </div>
+                            </div>
+            <div class="qSearch fr">
+                            <input type="text" name="text" value="" class="qSearch_input fl" placeholder="搜索课程名、老师名或学校全称" id="searchWorld" autocomplete="off">
+                            <input type="button" name="button" value="" class="qSearch_bnt fr" id="search">
+            </div>
+        </div>
+    </div>
+
+<script src="./jquery-3.3.1.min.js.下载" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="./xlPaging.js.下载"></script>
+<script type="text/javascript">
+	$(function () {
+        var passportUrl = getPassportUrl();
+        var url = getParentUrl();
+        var loginurl = passportUrl + "/login?loginType=4&fid=&newversion=true&refer="+url;
+        var registnurl = passportUrl + "/enroll?&newversion=true&fid=-1&refer="+url;
+		$("#login").attr("href",loginurl);
+		$("#regist").attr("href",registnurl);
+    });
+
+    $("#search").click(function(){
+        var w = $("#searchWorld").val();
+        var word = $.trim(w);
+        if(!!word){
+            var url = getParentUrl();
+            url = decodeURIComponent(url);
+            if (url.indexOf("searchapi/sarchresult") == -1){
+                var openurl = "/searchapi/sarchresult?searchword="+word;
+                window.open(openurl);
+            }else{
+            	var openurl = "/searchapi/sarchresult?searchword="+word;
+                window.parent.location.href=openurl;
+            }
+        }
+	});
+
+    $("#searchWorld").on("keydown",function (event) {
+        var url = getParentUrl();
+        url = decodeURIComponent(url);
+        var w = $("#searchWorld").val();
+        var word = $.trim(w);
+        var e =  event || window.event || arguments.callee.caller.arguments[0];
+        if(!!word){
+            word = encodeURIComponent(word);
+            if (url.indexOf("searchapi/sarchresult") == -1){
+                if(e && e.keyCode==13){
+                    var openurl = "/searchapi/sarchresult?searchword="+word;
+                    if(openurl && openurl != ""){
+                    	window.open(openurl);
+                    }
+                }
+            }else{
+            	if(e && e.keyCode==13){
+                    var openurl = "/searchapi/sarchresult?searchword="+word;
+                    if(openurl && openurl != ""){
+                        window.parent.location.href=openurl;
+                    }
+                }
+            }
+        }
+    });
+
+    function getPassportUrl(){
+        var url;
+        if (parent !== window) {
+            try {
+                url = parent.location.href;
+            }catch (e) {
+                url = document.referrer;
+            }
+        }
+        if(url != null && url !== ""){
+            if(url.indexOf("xueyinonline.com") >= 0){
+                url = "https://passport2.xueyinonline.com";
+            }
+            if(url.indexOf("chaoxing.com") >= 0){
+                url = "https://passport2.chaoxing.com";
+            }
+        }else{
+            url = "http://passport2.xueyinonline.com";
+        }
+        return url;
+    }
+
+    function getParentUrl() {
+        var url;
+        if (parent !== window) {
+            try {
+                url = parent.location.href;
+            }catch (e) {
+                url = document.referrer;
+            }
+        }
+
+        if(url != null && url != ""){
+            if(url.indexOf("mooc1.chaoxing.com/course/template60") >= 0){
+                url = url.replace('mooc1.chaoxing.com','mooc1.xueyinonline.com');
+                if(url.indexOf("https") >= 0){
+                    url = url.replace('https','http');
+                }
+            }
+            if(url.indexOf("mooc1-1.chaoxing.com/course/template60") >= 0){
+                url = url.replace('mooc1-1.chaoxing.com','mooc1.xueyinonline.com');
+                if(url.indexOf("https") >= 0){
+                    url = url.replace('https','http');
+                }
+            }
+            if(url.indexOf("mooc1-2.chaoxing.com/course/template60") >= 0){
+                url = url.replace('mooc1-2.chaoxing.com','mooc1.xueyinonline.com');
+                if(url.indexOf("https") >= 0){
+                    url = url.replace('https','http');
+                }
+            }
+        }else{
+            url ="http://www.xueyinonline.com/";
+        }
+        var  u = encodeURIComponent(url);
+        return u;
+    }
+</script>
+
+</body></html>
