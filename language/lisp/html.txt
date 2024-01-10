@@ -1,1 +1,5 @@
 http://daiyuwen.freeshell.org/gb/acl2/acl2.html
+https://paulgraham.com/acl.html
+software:
+lispstick
+clisp-2.49-win32-mingw-big

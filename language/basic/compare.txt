@@ -5,3 +5,77 @@ Comparison Operators
 <= Less Than or Equal To
 >= Greater Than or Equal To
 <> Not Equal To
+
+Compound Logical Operators
+AND – both sides must be true
+OR – one side or the other must be true
+XOR – one or the other must be true, but not both
+NOT – causes an opposite relation
+
+The seven math operators
+* Multiplication
+/ Division
++ Addition
+- Subtraction
+^ Exponentiation
+\ Integer division
+MOD Modulus
+
+Order of Operators
+Order Operator
+1 Exponentiation (^)
+2 Multiplication, Division, Integer, Division (*, /, \, MOD)
+3 Addition, subtraction (+, -)
+
+Numbers Functions
+ABS : Returns corresponding positive value. Example : ABS(x)
+CINT : Returns nearest numeric expression from -32768 to 32767 as argument. Example : CINT(x)
+COS : Is used to obtain the cosine of x. Example : COS(x)
+INT : Returns an integer that is smaller then or equal to a numeric expression. Example: INT(x)
+SIN : Is used to get the sine of x. Example : SIN(x)
+SGN : Is used to return the sign of numeric expression. Example : SGN(x)
+SQR : Is sued to calculate and return the square root of non-negative number. Example : SQR(x)
+TAN : Is used to get the tangent of x. Example : TAN(x)
+String Functions
+ASC : Returns the ASCII code corresponding to the character of string. Example : ASC(string)
+CHR$ : Returns a character that corresponds to specific ASCII values in between -128 and 127 as
+arguments. Example : CHR$(m)
+INSTR$ : Searches for one string inside another and returns the position of first character. Example
+: INSTR([m,]x$,y$)
+LEN : Counts and returns the total number of characters in a string. Example : LEN(v)
+LEFT$ : Is used to extract and return the numbers of characters from the left of a string. Example :
+LEFT$(expression,x)
+RIGHT$ : Is used to extract and return the numbers of characters from the right of a string. Example
+: RIGHT$(expression,y)
+MID$ : Is used to replace the part of the string variable with another. Example :
+MID$(expression,start,length)
+SPACE$ : Returns a string of spaces of a specified length. Example : SPACE$(x)
+STR$ : Converts a numeric expression to string and returns the same. Example : STR$(x)
+STRING$ :Returns a string of a specified length made up of a repeating character. Example :
+STRING$(x,y | z$)
+LCASES$ and UCASES$ : Converts string values to lowercase and uppercase respectively. Example
+: LCASES$(expression) and UCASES$(expression)
+DATE$ and TIME$: Retrieve the current date and time respectively. Example : DATE$=String and
+TIME$=String
+
+Screens
+SCREEN 0: Text-Mode
+SCREEN 1: 320 x 200 Resolution, 4 Colors
+SCREEN 2: 640 x 200 Resolution, Black and White
+SCREEN 7: 320 x 200 Resolution, 16 Colors
+SCREEN 8: 640 x 200 Resolution, 16 Colors
+SCREEN 9: 640 x 350 Resolution,16 Colors
+SCREEN 10: 640 x 350 Resolution, Black and White
+SCREEN 11: 640 x 480 Resolution, Black and White
+SCREEN 12: 640 x 480 Resolution, 16 Colors
+SCREEN 13: 320 x 200 Resolution, 256 Colors
+
+QBasic Color Codes
+0 Black	8 Dark Grey (Light Black)
+1 Blue	9 Light Blue
+2 Green	10 Light Green
+3 Cyan	11 Light Cyan
+4 Red	12 Light Red
+5 Purple	13 Light Purple
+6 Brown/Orange	14 Yellow (Light Orange)
+7 Light Grey (White)	15 White (Light White)

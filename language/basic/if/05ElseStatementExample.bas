@@ -9,3 +9,7 @@ Else
 End If
 
 
+rem print ""
+print
+print "press any key to exit"
+input a

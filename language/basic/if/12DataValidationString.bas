@@ -14,3 +14,7 @@ Print "Your answer in lowercase is " + answer$
 Print "Your answer in uppercase is " + UCase$(answer$)
 
 
+print
+print "press any key to exit"
+input a
+end

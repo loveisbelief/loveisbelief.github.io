@@ -8,3 +8,5 @@ If answer = 2 Then
     Print "Two is a good number"
 End If
 
+print"ok,any key to exit"
+input a

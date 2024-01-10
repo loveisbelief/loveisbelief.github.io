@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>递归读取文件夹中的文件</title>
+  </head>
+  <body>
+    <input type="file" id="folderInput" webkitdirectory directory multiple />
+    <button onclick="readFiles()">读取文件夹</button>
+
+    <script>
+      function readFiles() {
+        var folderInput = document.getElementById('folderInput');
+        var fileList = folderInput.files;
+
+        readFolderFiles(fileList);
+      }
+
+      function readFolderFiles(files) {
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+
+          if (file.isDirectory) {
+            readFolderFiles(file.listFiles());
+          } else {
+            console.log(file.name);
+            // 这里可以根据需要进行文件处理
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

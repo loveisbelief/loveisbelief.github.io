@@ -13,4 +13,7 @@ Else
     Print "Please enter Y to start the program or N to exit"
 End If
 
-
+print
+print "press any key to exit"
+input a
+end

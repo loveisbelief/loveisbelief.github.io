@@ -14,3 +14,6 @@ ElseIf answer# > 4 Then
     Print "Your guess was too high"
 End If
 
+print
+print "press any key to exit"
+input a

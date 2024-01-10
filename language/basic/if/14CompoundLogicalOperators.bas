@@ -22,3 +22,7 @@ If (Not (num1! > 100)) And (Not (num2! > 100)) Then
     Print "Neither of your numbers were larger than 100"
 End If
 
+print
+print "press any key to exit¡£¡£¡£"
+input a
+end

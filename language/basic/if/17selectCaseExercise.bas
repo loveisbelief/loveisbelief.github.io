@@ -15,4 +15,7 @@ Select Case answer$
         Print "You animal is not recognized"
 End Select
 
-
+print
+print"press any key to exit..."
+input a
+end

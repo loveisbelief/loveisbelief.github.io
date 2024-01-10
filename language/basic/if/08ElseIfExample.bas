@@ -10,3 +10,6 @@ Else
     Print "You earned 0 stars."
 End If
 
+print
+print "press any key to exit"
+input a

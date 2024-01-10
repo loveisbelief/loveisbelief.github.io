@@ -18,4 +18,7 @@ Select Case answer#
         Print "You did not enter a number between 1 and 5"
 End Select
 
-
+print
+print"press any key to exit..."
+input a
+end

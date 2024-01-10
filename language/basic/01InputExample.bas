@@ -1,4 +1,4 @@
-Const pi! = 3.14159
+Const pi! = 3.1415926
 Let diameter! = 0
 Let answer! = 0
 Print "This program finds the circumference of a circle given its diameter."
@@ -9,3 +9,6 @@ answer! = pi! * diameter!
 
 Print "The circumference of a circle with a diameter of " + Str$(diameter!) + " is:"
 Print answer!
+
+print "any key to exit"
+input a

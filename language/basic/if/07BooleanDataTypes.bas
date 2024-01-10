@@ -11,7 +11,7 @@ Let isDogPerson = False
 Print "Do you like dogs? [Y / N]"
 Input answer$
 
-If answer$ = "y" Then
+If answer$ = "y"or answer$="Y" Then
     isDogPerson = True
 End If
 
@@ -21,5 +21,6 @@ Else
     Print "You should give dogs another try!"
 End If
 
-
-
+print
+print "press any key to exit"
+input a

@@ -24,6 +24,9 @@ percentage! = (pointsCorrect! / totalPoints!) * 100
 Print "The percentage is:"
 Print Str$(percentage!) + "%"
 
-
+print
+print "press any key to exit"
+input a
+end
 
 
