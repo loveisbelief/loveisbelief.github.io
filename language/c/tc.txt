@@ -1,0 +1,82 @@
+https://www.runoob.com/cprogramming/c-100-examples.html
+https://www.cnblogs.com/djcsch2001/articles/1961754.html
+https://blog.csdn.net/YSJ367635984/article/details/104807909
+如果要使用registerbgidriver或registerfarbgidriver之类函数，先得用bgi2obj把*.bgi生成*.obj,在把*.obj加到库里，当年我学C++时专门编了个批处理：
+
+如果你是BC3.1则把以下的写成一个批处理放在x:\borlandc\bgi文件夹下
+@echo off
+
+bgiobj att
+bgiobj cga
+bgiobj egavga
+bgiobj herc
+bgiobj ibm8514
+bgiobj pc3270
+bgiobj bold
+bgiobj euro
+bgiobj goth
+bgiobj lcom
+bgiobj litt
+bgiobj sans
+bgiobj scri
+bgiobj simp
+bgiobj trip
+bgiobj tscr
+
+bgiobj /F att
+bgiobj /F cga
+bgiobj /F egavga
+bgiobj /F herc
+bgiobj /F ibm8514
+bgiobj /F pc3270
+bgiobj /F bold
+bgiobj /F euro
+bgiobj /F goth
+bgiobj /F lcom
+bgiobj /F litt
+bgiobj /F sans
+bgiobj /F scri
+bgiobj /F simp
+bgiobj /F trip
+bgiobj /F tscr
+..\Bin\tlib ..\lib\graphics.lib +att +cga +egavga +herc
+..\Bin\tlib ..\lib\graphics.lib +ibm8514 +pc3270 +bold +euro
+..\Bin\tlib ..\lib\graphics.lib +goth +lcom +litt +sans +scri
+..\Bin\tlib ..\lib\graphics.lib +simp +trip +tscr +attf +cgaf
+..\Bin\tlib ..\lib\graphics.lib +egavgaf +hercf +ibm8514f +pc3270f
+..\Bin\tlib ..\lib\graphics.lib +boldf +eurof +gothf +lcomf +littf
+..\Bin\tlib ..\lib\graphics.lib +sansf +scrif +simpf +tripf +tscrf
+del *.obj
+del ..\lib\graphics.bak
+
+如果是TC2则把以下的写成一个批处理放在x:\tc文件夹下
+@echo off
+
+bgiobj att
+bgiobj cga
+bgiobj egavga
+bgiobj herc
+bgiobj ibm8514
+bgiobj pc3270
+bgiobj goth
+bgiobj litt
+bgiobj sans
+bgiobj trip
+
+bgiobj /F att
+bgiobj /F cga
+bgiobj /F egavga
+bgiobj /F herc
+bgiobj /F ibm8514
+bgiobj /F pc3270
+bgiobj /F goth
+bgiobj /F litt
+bgiobj /F sans
+bgiobj /F trip
+tlib ..\lib\graphics.lib +att +cga +egavga +herc +ibm8514 +pc3270
+tlib ..\lib\graphics.lib +goth +litt +sans +trip
+tlib ..\lib\graphics.lib +attf +cgaf +egavgaf +hercf +ibm8514f +pc3270f
+tlib ..\lib\graphics.lib +gothf +littf +sansf +tripf
+del *.obj
+del ..\lib\graphics.bak
+然后执行这个批处理。
