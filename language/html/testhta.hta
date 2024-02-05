@@ -1,0 +1,711 @@
+<Html>
+<Head>
+<Title>HTA Test</Title>
+<HTA:APPLICATION
+  applicationName="HTA_Test"
+  border="Dialog"
+  borderStyle="Raized"
+  caption="Yes"
+  contextMenu="No"
+  icon="E:\文档\图标\Ico图标大全\Icon资源大全\chemical.ico"
+  id="Test"
+  innerBoder="Yes"
+  navigable="Yes"
+  maximizeButton="No"
+  minimizeButton="No"
+  scroll="No"
+  scrollFlat="Yes"
+  selection="Yes"
+  showInTaskbar="Yes"
+  singleInstance="No"
+  sysMenu="Yes"
+  version="1.0"
+  windowState="Normal" />
+</Head>
+<script language="VBScript">
+Function GetCmdArgs(cmdArgs)
+'本函数解析命令行参数
+'1.左引号前面必须是空格，否则引号应视作参数内容，而非边界
+'2.右引号后面必须是空格，否则引号应视作参数内容，而非边界
+'3.最后面的那个参数，如果引号边界没有配对，即无右引号，那么
+'  最后的那个参数的左引号当重新认定为内容，而非边界
+'4.多个空格间隔两个参数，防止后面的空格间隔符被归入内容中
+'5.防止命令行参数最后有多个无意义空格的情况
+    Dim args(),isComplete,c,args2,i,index
+    isComplete=True
+    ReDim args(0)
+    For i=1 To Len(cmdArgs)
+        c=Mid(cmdargs,i,1)
+        If c=Chr(34) Then
+            If isComplete Then
+                If i=1 Then
+                    isComplete=Not isComplete
+                Else
+                    If Mid(cmdArgs,i-1,1)=" " Then
+                        isComplete=Not isComplete
+                    Else
+                        args(UBound(args))=args(UBound(args))+c
+                    End If
+                End If
+            Else
+                If i=Len(cmdArgs) Then
+                    isComplete=Not isComplete
+                Else
+                    If Mid(cmdArgs,i+1,1)=" " Then
+                        isComplete=Not isComplete
+                    Else
+                        args(UBound(args))=args(UBound(args))+c
+                    End If
+                End If
+            End If
+        Else
+            If c=" " And isComplete=True Then
+                If args(UBound(args))<>"" Then
+                    ReDim Preserve args(UBound(args)+1)
+                End If
+            Else
+                args(UBound(args))=args(UBound(args))+c
+            End if
+        End If
+    Next
+    If isComplete=False Then
+        args(UBound(args))=Chr(34)+args(UBound(args))
+        If InStr(args(UBound(args))," ")<>0 Then
+            args2=Split(args(UBound(args)))
+            index=UBound(args)
+            ReDim Preserve args(UBound(args2)+index)
+            For i=index To UBound(args2)+index
+                args(i)=args2(i-index)
+            Next
+        End If
+    End If
+    If args(UBound(args))="" Then
+        ReDim Preserve args(UBound(args)-1)
+    End If
+    GetCmdArgs=args
+End Function
+</script>
+<Script language="JavaScript">
+//=====================================================
+//HTA是HTML Application的缩写（HTML应用程序），直接将HTML
+//保存成HTA的格式，就成了一个独立的应用软件，也可以嵌入
+//<HTA:APPLICATION>元素来增强对该应用程序的控制
+//=====================================================
+//以下是<HTA:APPLICATION>元素可用属性，可用来设置HTA窗口
+//的各种细节【记住HTA:APPLICATION这个APPLICATION不可少，
+//且这里必须全大写，否则以下属性无效】
+//【1】applicationName:string=>设置HTA程序的名称，在singleInstance
+// 属性设置为"Yes"时有用
+//【2】border:enum=>设置HTA窗口的边框类型，默认值Thick
+// 所有允许的值：     Thick         粗边框
+//                    Dialog        对话框【大小不可调整】
+//                    None          无边框【无标题栏】
+//                    Thin          窄边框
+//【3】borderSytle:enum=>设置HTA窗口的边框风格，默认值是Normal
+// 所有允许的值：     Normal     普通
+//                    Complex    凹凸格式组合边框
+//                    Raised     凸出的3D边框
+//                    Static     3D边框格式
+//                    Sunken     凹进的3D边框
+//【4】caption:Yes/No=>设置HTA窗口是否显示标题栏，默认值为Yes
+//【5】commandLine:string=>此属性保存了HTA程序的启动参数【无法通过
+// 在<HTA:APPLICATION>元素中设置来定义，是受调用传递的参数控制的】，
+// 参数可以在Script块中通过<Id>.commandLine来引用，如本程序则是
+// Test.commandLine。它的各个参数之间以空格分隔；包含空格的参数请
+// 在调用时，用引号引起来，否则会被当成多个参数；第一个参数总是HTA
+// 程序的文件路径；其参数需要自己手动解析；因为这个属性的存在，你可
+// 以方便地使用js/vbs总调用各种HTA界面，而后通过window.onunload来记录
+// 下结果，以方便总调程序获取HTA交互结果
+//【6】contextMenu:Yes/No=>是否显示右键上下文菜单，默认值Yes
+//【7】icon:stirng=>设置应用程序的图标文件路径，须是有效的ico图标文
+// 件，如icon="c:\\a.ico"
+//【8】innerBorder:Yes/No=>是否显示内部边框的3D边界，默认值Yes
+//【9】navigable:Yes/No=>是否在本窗口加载新navigate(url)的链接，当
+// navigable=Yes时，window.navigate(url)方法加载的页面将在本HTA窗口
+// 中加载，而不是新的浏览器页面
+//【10】maximizeButton:Yes/No=>是否显示最大化按钮，默认值Yes
+//【11】minimizeButton:Yes/No=>是否显示最小化按钮，默认值Yes
+//【12】scroll:Yes/No=>是否在页面右侧显示垂直滚动条，默认值是Yes
+//【13】scrollFlat:Yes/No=>设置滚动条是3D(No)或者平面的(Yes)
+//【14】selection:Yes/No=>设置内容是否可以被鼠标或键盘选中
+//【15】showInTaskbar:Yes/No=>是否在任务栏显示任务图标，默认值Yes
+//【16】singleInstance:Yes/No=>是否同时只允许有一个运行实例【进程】，
+// 默认值No。当第二次启动同一个HTA程序时, mshta.exe通过上面
+// applicaitonName来区分是否名称已占用
+//【17】sysMenu:Yes/No=>是否允许显示标题栏右键菜单，默认值是Yes
+//【18】version:string=>设置应用程序的版本，如"1.0"，默认值为""
+//【19】windowState:enum=>设置HTA窗口的显示类型，默认值为Normal
+// 所有允许的值：     Normal              常规
+//                    Minimize            最小化
+//                    Maximize            最大化
+//=====================================================
+//参见Microsoft HTML Object Library库
+//1.以下事件是可以正常发生的：
+//window.onafterprint             此事件在HTA窗口的打印工作完成之后发生
+//window.onbeforeprint            此事件在HTA窗口的打印工作开始之前发生
+//window.onbeforeunload           此事件在HTA窗口被销毁前发生
+//window.onblur                   此事件在将键盘焦点从HTA窗口移开时发生
+//window.onerror                  此事件在HTA程序出现错误时发生
+//window.onfocus                  此事件在HTA窗口获得焦点时发生
+//window.onhelp                   此事件在HTA窗口有焦点时按下F1帮助键时发生
+//window.onload                   此事件在HTA窗口被成功加载后发生
+//window.onresize                 此事件在HTA窗口的大小改变时发生
+//window.onscroll                 此事件在对HTA窗口执行滚动操作时发生
+//window.onunload                 此事件在HTA窗口被销毁时发生，切记此时alert不再可用
+//2.可以通过IHTMLWindow2接口定义的其它方法属性来操纵HTA程序
+//  的窗口。
+//3.HTA中仍然可以使用Scripting.FileSystemObject对象来对文件
+//  系统进行读写操作，可利用Window_OnUnload事件来收集HTA表单
+//  的数据，记录为文本，方便常规的VBS脚本程序通过GUI界面来进
+//  行交互，提升交互体验与使用的方便性。
+//4.HTA中脚本宿主对象WScript/WshArguments/WshNamed/WshUnnamed
+//  对象是无法使用的，其它的如WshShell/WshEnvironment/
+//  WshShortcut/WshSpecialFolders/WshUrlShortcut/WshNetwork
+//  对象等依然可用
+//-----------------------------------------------------
+//HTA窗口的打印控制事件
+// window.onafterprint=function()
+// {
+//    此事件在HTA窗口的打印工作完成之后发生
+    // alert("OnAfterPrint");
+// }
+// window.onbeforeprint=function()
+// {
+//    此事件在HTA窗口的打印工作开始之前发生
+    // alert("OnBeforePrint");
+// }
+//-----------------------------------------------------
+// window.onblur=function()
+// {
+//    此事件在将键盘焦点从HTA窗口移开时发生
+    // alert("OnBlur");
+// }
+// window.onerror=function()
+// {
+//    此事件在HTA程序出现错误时发生
+    // alert("OnError");
+// }
+// window.onfocus=function()
+// {
+//    此事件在HTA窗口获得焦点时发生
+    // alert("OnFocus");
+// }
+// window.onhelp=function()
+// {
+//    此事件在HTA窗口有焦点时按下F1帮助键时发生
+    // alert("OnHelp");
+// }
+//-----------------------------------------------------
+//HTA窗口的加载与销毁事件
+var es,values;
+var ws=new ActiveXObject("WScript.Shell");
+var fso=new ActiveXObject("Scripting.FileSystemObject");
+
+function GetCmdArgs(cmdArgs)
+{
+//本函数解析命令行参数
+//1.左引号前面必须是空格，否则引号应视作参数内容，而非边界
+//2.右引号后面必须是空格，否则引号应视作参数内容，而非边界
+//3.最后面的那个参数，如果引号边界没有配对，即无右引号，那么
+//  最后的那个参数的左引号当重新认定为内容，而非边界
+//4.多个空格间隔两个参数，防止后面的空格间隔符被归入内容中
+//5.防止命令行参数最后有多个无意义空格的情况
+    var args=new Array(''),isComplete=true;
+    for(var i=0;i<cmdArgs.length;i++)
+    {
+        var c=cmdArgs.charAt(i);
+        if(c=='"')
+            if(isComplete)
+                if(i==0)
+                    isComplete=!isComplete;
+                else
+                    if(cmdArgs.charAt(i-1)==" ")
+                        isComplete=!isComplete;
+                    else
+                        args[args.length-1]+=c;
+            else
+                if(i==cmdArgs.length-1)
+                    isComplete=!isComplete;
+                else
+                    if(cmdArgs.charAt(i+1)==" ")
+                        isComplete=!isComplete;
+                    else
+                        args[args.length-1]+=c;
+
+        else
+            if(c==" "&&isComplete&&args[args.length-1]!="")
+                args.push('');
+            else
+                args[args.length-1]+=c;
+    }
+    if(!isComplete)
+    {
+        var arg='"'+args.pop();
+        if(arg.indexOf(" ")!=-1)
+            args=args.concat(arg.split(" "));
+    }
+    if(args[args.length-1]=="")
+        args.pop();
+    return args
+}
+
+function isGoodVarName(name){
+    var arr=name.match(/^[a-zA-Z_][a-zA-Z_0-9]*$/g);
+    if(arr!=null&&arr.length==1)
+        return true;
+    else
+        return false;
+}
+
+function isNumberStr(numStr){
+    try{num=eval('new Number('+numStr+')');}
+    catch(e){return false;}
+    return true;
+}
+
+function center_clicked(){
+    var e=self.document.getElementById('left');
+    e.disabled=!e.disabled;
+    var e=self.document.getElementById('top');
+    e.disabled=!e.disabled;
+}
+
+function getHta(){
+    var xml=new ActiveXObject("MSXML2.DOMDocument");
+    var eHta=xml.createElement('HTA:APPLICATION');
+    var names=('applicationName;border;borderStyle;caption;contextMenu;'+
+        'icon;id;innerBorder;navigable;maximizeButton;minimizeButton;'+
+        'scroll;scrollFlat;selection;showInTaskbar;singleInstance;'+
+        'sysMenu;version;windowState').split(";");
+    for(var i=0;i<names.length;i++)
+        eHta.setAttribute(names[i],values.Item(names[i]));
+    var htaSettingsStr=eHta.xml;
+    htaSettingsStr=htaSettingsStr.replace(/(\") (\w)/ig,'$1\r\n $2');
+    htaSettingsStr=htaSettingsStr.replace(/(\w) (\w+=\")/ig,'$1\r\n $2');
+    return htaSettingsStr;
+}
+
+function btnOk_clicked(){
+    es=new Elements();
+    values=new ActiveXObject("Scripting.Dictionary");
+    //get all values
+    for(var i in es)
+        if(i!='getValue')
+            values.Add(i,es.getValue(es[i]));
+    //check values
+    //check 'id'
+    var value=values.Item('id');
+    if(values.Item('commandLine')=='Yes'&&value==''&&!isGoodVarName(value)){
+        alert('The value of "id" must be a good varname when the commandLine is required!!!');
+        return;
+    }
+    //check 'left','top','width','height'
+    var names=new Array('left','top','width','height');
+    for(var i=0;i<names.length;i++){
+        var name=names[i];
+        if(values.Item('center')=='Yes')
+            if(name=='left'||name=='top')
+                continue;
+        value=values.Item(name);
+        if(isNumberStr(value)){
+            values.Item(name)=eval('new Number('+value+')');
+            value=values.Item(name);
+            var maxValue=eval('self.window.screen.'+name);
+            if(value>maxValue||value<0){
+                alert("The value of '"+name+"' must be 0-"+maxValue);
+                return;
+            }
+        }
+        else{
+            alert("The value of '"+name+"' is not a number string.");
+            return;
+        }
+    }
+    //htaPath
+    var htaPath;
+    do{
+        htaPath=fso.GetAbsolutePathName(fso.GetBaseName(fso.GetTempName())+'.hta');
+    }while(fso.FileExists(htaPath));
+    //start to write the hta file
+    var txt=fso.CreateTextFile(htaPath);
+    txt.WriteLine('<html>\r\n<head>\r\n<title>'+values.Item('title')+'</title>');
+    txt.WriteLine(getHta());
+    txt.WriteLine('<script language="'+values.Item('language')+'">');
+    if(values.Item('language')=='JavaScript'){
+        if(values.Item('commandLine')=='Yes'){
+            txt.WriteLine(GetCmdArgs);
+            txt.WriteLine('');
+        }
+
+        if(values.Item('center')=='Yes'){
+            var width=values.Item('width'),height=values.Item('height');
+            if(width!=0&&height!=0){
+                txt.WriteLine('\r\nself.resizeTo('+width+','+height+');');
+                txt.WriteLine('self.moveTo((self.screen.width-'+width+
+                    ')/2,(self.screen.height-'+height+')/2);\r\n');
+            }
+        }
+        else{
+            var left=values.Item('left'),top=values.Item('top');
+            var width=values.Item('width'),height=values.Item('height');
+            if(left!=0&&top!=0&&width!=0&&height!=0){
+                txt.WriteLine('\r\nself.resizeTo('+width+','+height+');');
+                txt.WriteLine('self.moveTo('+left+','+top+');\r\n');
+            }
+        }
+        for(var e=new Enumerator(values);!e.atEnd();e.moveNext()){
+            name=e.item();
+            if(name.indexOf('window')==0&&values.Item(name)=='Yes'){
+                name=name.replace('_','.');
+                txt.WriteLine(name+'=function(){\r\n    \r\n}\r\n');
+            }
+        }
+    }
+    else{
+        if(values.Item('commandLine')=='Yes'){
+            var stream=fso.OpenTextFile(GetCmdArgs(Test.commandLine)[0]);
+            for(var i=1;i<=86;i++)
+                if(i<=25)
+                    stream.SkipLine();
+                else
+                    txt.WriteLine(stream.ReadLine());
+            stream.Close();
+            txt.WriteLine('');
+        }
+        if(values.Item('center')=='Yes'){
+            var width=values.Item('width'),height=values.Item('height');
+            if(width!=0&&height!=0){
+                txt.WriteLine('\r\nself.resizeTo '+width+','+height);
+                txt.WriteLine('self.moveTo (self.screen.width-'+width+
+                    ')/2,(self.screen.height-'+height+')/2\r\n');
+            }
+        }
+        else{
+            var left=values.Item('left'),top=values.Item('top');
+            var width=values.Item('width'),height=values.Item('height');
+            if(left!=0&&top!=0&&width!=0&&height!=0){
+                txt.WriteLine('\r\nself.resizeTo '+width+','+height);
+                txt.WriteLine('self.moveTo '+left+','+top);
+                txt.WriteLine('');
+            }
+        }
+        for(var e=new Enumerator(values);!e.atEnd();e.moveNext()){
+            name=e.item();
+            if(name.indexOf('window')==0&&values.Item(name)=='Yes'){
+                txt.WriteLine('Sub '+name+'\r\n    \r\nEnd Sub\r\n');
+            }
+        }
+    }
+    txt.WriteLine('<\/script>');
+    txt.WriteLine('</head>\r\n<body>\r\n</body>\r\n</html>');
+    txt.Close();
+    self.close();
+}
+
+function btnCancel_clicked(){
+    var btn=ws.Popup("The settings will be gave up, a"+
+        "re you sure?",0,"Warnning",4+32);
+    if(btn==6)
+        self.close();
+}
+
+function Elements(){
+     this.getValue=function(e){
+        switch(e.type){
+            case "checkbox":
+                return e.checked?'Yes':'No';
+            case "text":
+            case "file":
+                return e.value;
+            case "select-one":
+            case "select-multiple":
+                index=e.selectedIndex
+                return e.options[index].text;
+            default:
+                throw new Error(5001,"The element '"+e.id+"' is not the right type.");
+        }
+    }
+    for(var i=0;i<self.document.all.length;i++){
+        var el=self.document.all[i];
+        if(el.id!=''&&typeof el.type!='undefined'&&el.type!='button')
+            eval('this.'+el.id+'=el');
+    }
+}
+window.onload=function()
+{
+    //此事件在HTA窗口被成功加载后发生
+    var width=800,height=685;
+    self.resizeTo(width,height);
+    self.moveTo((self.screen.availWidth-width)/2,
+        (self.screen.availHeight-height)/2);
+    alert("OnLoad");
+    //让我们来看看本程序接收到哪些命令行参数
+    //你可以命令行执行HTATest.hta "hello world" 32
+    alert("Test.CommandLine: "+Test.commandLine);
+    alert("ApplicationName = "+Test.applicationName);
+    //其它属性也可只读访问，切记使用Id名来引用各个属性
+    var args=GetCmdArgs(Test.commandLine);
+    for(var i=0;i<args.length;i++)
+        alert(args[i]);
+}
+// window.onbeforeunload=function()
+// {
+//    此事件在HTA窗口被销毁前发生
+    // alert("OnBeforeUnload" );
+// }
+window.onunload=function()
+{
+    //此事件在HTA窗口被销毁时发生，切记alert不再可用
+    var ws=new ActiveXObject("WScript.Shell")
+    ws.Popup("OnUnload");
+    //-------------------------------------
+    dPath=ws.SpecialFolders("Desktop")
+    pPath=ws.SpecialFolders("Programs")
+    //-------------------------------------
+    var sc=ws.CreateShortcut(dPath+"\\Programs.lnk")
+    sc.TargetPath=pPath
+    sc.WindowStyle=3
+    sc.Hotkey="Ctrl+Alt+j"
+    sc.Save();
+    //-------------------------------------
+    var sc=ws.CreateShortcut(dPath+"\\baidu.url")
+    sc.TargetPath="http://www.baidu.com"
+    sc.Save();
+    //-------------------------------------
+    var fso=new ActiveXObject("Scripting.FileSystemObject")
+    var txt=fso.CreateTextFile("Output.txt")
+    var nt=new ActiveXObject("WScript.Network")
+    txt.WriteLine("Domain = "+nt.UserDomain);
+    txt.WriteLine("Computer Name = "+nt.ComputerName);
+    txt.WriteLine("User Name = " + nt.UserName );
+    txt.WriteLine("=====================================");
+    var oDrives=nt.EnumNetworkDrives();
+    var oPrinters=nt.EnumPrinterConnections();
+    txt.WriteLine("Network drive mappings:");
+    for(var i=0;i<oDrives.length;i+=2)
+        txt.WriteLine("Drive【"+oDrives.item(i)+"】="+
+            oDrives.item(i+1));
+    txt.WriteLine("=====================================");
+    txt.WriteLine("Network printer mappings:");
+    for(var i=0;i<oPrinters.length;i+=2)
+        txt.WriteLine("Port【"+oPrinters.item(i)+"】="+
+            oPrinters.item(i+1));
+    txt.WriteLine("=====================================");
+    txt.Close();
+    ws.Run("Notepad.exe Output.txt")
+}
+//-----------------------------------------------------
+// window.onresize=function()
+// {
+//    此事件在HTA窗口的大小改变时发生
+    // alert("OnResize");
+// }
+// window.onscroll=function()
+// {
+//    此事件在对HTA窗口执行滚动操作时发生
+    // alert("OnScroll");
+// }
+//=====================================================
+</Script>
+<Body>
+<table width="100%" border="1">
+<col />
+<col width="16%" />
+<col width="46%" />
+<tr>
+<th>选择事件</th>
+<th>属性</th>
+<th>设置值</th>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onafterprint">window.onafterprint</td>
+<td align="right">applicationName: </td>
+<td><input type="text" id="applicationName"></td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onbeforeprint">window.onbeforeprint</td>
+<td align="right">border: </td>
+<td><select id="border">
+  <option value="Dialog">Dialog</option>
+  <option value="None">None</option>
+  <option value="Thick">Thick</option>
+  <option value="Thin">Thin</option>
+</select></td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onbeforeunload">window.onbeforeunload</td>
+<td align="right">borderStyle: </td>
+<td><select id="borderStyle">
+  <option value="Normal">Normal</option>
+  <option value="Complex">Complex</option>
+  <option value="Raised">Raised</option>
+  <option value="Static">Static</option>
+  <option value="Sunken">Sunken</option>
+</select></td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onblur">window.onblur</td>
+<td align="right">caption: </td>
+<td><input type="checkbox" id="caption" checked="true">show title bar?</td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onerror">window.onerror</td>
+<td align="right">contextMenu: </td>
+<td><input type="checkbox" id="contextMenu" checked="true">show contextMenu?</td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onfocus">window.onfocus</td>
+<td align="right">icon: </td>
+<td><input type="file" id="icon"></td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onhelp">window.onhelp</td>
+<td align="right">id: </td>
+<td><input type="text" id="id"></td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onload" checked="true">window.onload</td>
+<td align="right">innerBorder: </td>
+<td><input type="checkbox" id="innerBorder" checked="true">show inner border?</td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onresize">window.onresize</td>
+<td align="right">navigable: </td>
+<td><input type="checkbox" id="navigable" checked="true">navigate pages in current page?</td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onscroll">window.onscroll</td>
+<td align="right">maximizeButton: </td>
+<td><input type="checkbox" id="maximizeButton" checked="true">show maximize button?</td>
+</tr>
+<tr>
+<td><input type="checkbox" id="window_onunload">window.onunload</td>
+<td align="right">minimizeButton: </td>
+<td><input type="checkbox" id="minimizeButton" checked="true">show minimize button?</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<col width="38%" />
+<col />
+<tr>
+<td align="right">left: </td>
+<td><input type="text" id="left" disabled="true" value="0"></td>
+</tr>
+</table>
+</td>
+<td align="right">scroll: </td>
+<td><input type="checkbox" id="scroll" checked="true">show scroll?</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<col width="38%" />
+<col />
+<tr>
+<td align="right">top: </td>
+<td><input type="text" id="top" disabled="true" value="0"></td>
+</tr>
+</table>
+</td>
+<td align="right">scrollFlat: </td>
+<td><input type="checkbox" id="scrollFlat" checked="true">show scroll in flat?</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<col width="38%" />
+<col />
+<tr>
+<td align="right">width: </td>
+<td><input type="text" id="width" value="0"></td>
+</tr>
+</table>
+</td>
+<td align="right">selection: </td>
+<td><input type="checkbox" id="selection" checked="true">allow user to select the page elements?</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<col width="38%" />
+<col />
+<tr>
+<td align="right">height: </td>
+<td><input type="text" id="height" value="0"></td>
+</tr>
+</table>
+</td>
+<td align="right">showInTaskbar: </td>
+<td><input type="checkbox" id="showInTaskbar" checked="true">show in taskbar?</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<col width="38%" />
+<col />
+<tr>
+<td align="right">center: </td>
+<td><input type="checkbox" id="center" checked="true" onclick="center_clicked()">center screen?</td>
+</tr>
+</table>
+</td>
+<td align="right">singleInstance: </td>
+<td><input type="checkbox" id="singleInstance">run as a single instance application?</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<col width="38%" />
+<col />
+<tr>
+<td align="right">language: </td>
+<td><select id="language">
+  <option value="JavaScript">JavaScript</option>
+  <option value="VBScript">VBScript</option>
+</select></td>
+</tr>
+</table>
+</td>
+<td align="right">sysMenu: </td>
+<td><input type="checkbox" id="sysMenu" checked="true">show system menu?</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<col width="38%" />
+<col />
+<tr>
+<td align="right">commandLine: </td>
+<td><input type="checkbox" id="commandLine">Receive arguments?</td>
+</tr>
+</table>
+</td>
+<td align="right">version: </td>
+<td><input type="text" id="version" value="1.0"></td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<col width="38%" />
+<col />
+<tr>
+<td align="right">title: </td>
+<td><input type="text" id="title"></td>
+</tr>
+</table>
+</td>
+<td align="right">windowState: </td>
+<td><select id="windowState">
+  <option value="Normal">Normal</option>
+  <option value="Minimize">Minimize</option>
+  <option value="Maximize">Maximize</option>
+</select></td>
+</tr>
+</table>
+<center>
+<input type="button" id="btnOk" value="  Ok  " onclick="btnOk_clicked()">
+<input type="button" id="btnCancel" value="Cancel" onclick="btnCancel_clicked()">
+</center>
+</Body>
+</Html>

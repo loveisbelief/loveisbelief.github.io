@@ -1,0 +1,37 @@
+<html>
+
+<head>
+<title>Toolbar Example</title>
+</head>
+
+<Script Language=”VBScript”>
+Sub Window_Onload
+CommandButton1.Width = 32
+CommandButton1.Height = 32
+CommandButton1.Picture = LoadPicture(“c:\scripts\network.bmp”)
+End Sub
+
+Sub CommandButton1_Click()
+DataArea.InnerHTML = “You clicked button 1.”
+End Sub
+</Script>
+
+<body topmargin=”0″ rightmargin=”0″ leftmargin=”0″>
+
+<table width=”100%” border=”1″ width=”100%” bordercolorlight=”buttonface”
+bordercolordark=”buttonface” style=”border-collapse:collapse”>
+<tr>
+<td width=”100%” bgcolor=”buttonface”>
+
+</td>
+</tr>
+<table>
+
+<p>&nbsp;<p>
+<blockquote>
+
+<span id=DataArea></span>
+
+</blockquote>
+</body>
+</html>

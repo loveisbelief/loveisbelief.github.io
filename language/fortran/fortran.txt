@@ -1,0 +1,540 @@
+1. 简介
+大气、地球物理很多经典模型都提供了Fortran77源码，为了使用这些模型，学习Fortran77编程是有必要的。
+
+1.1 FORTRAN语言发展概况
+（1）适用于工程及科学计算的一种高级程序设计语言
+（2）1951年由约翰·贝克斯等人开始研究Fortran语言；
+（3）1957年第一个Fortran程序在IBM704机上运行；
+（4）1958和1962年先后推出FortranⅡ和FortranⅣ；
+（5）1966和1978年先后颁布Fortran66
+
+1.2 Fortran77和Fortran90的区别
+Fortran奠定了高级语言发展的基础。Fortran的主要版本及差别按其发展历史，Fortran编译器的版本其实很多。现在在广泛使用的是Fortran77和Fortran90（另外，现在还有95、2003和2008版本）。Fortran77和Fortran90的区别：
+
+Fortran77： 也称固定格式（fixed format），程序代码扩展名：.f或.for
+
+（1）若某行以C或c开头，则该行被当成注释；
+（2）每行前六个字符不能写程序代码，可空着；7~72为程序代码编写区；73往后被忽略；
+（3）太长的话可以续行，所续行的第六个字符可以是"0"以外的任何字符。
+Fortran90：自由格式（free format）， 扩展名：.f90
+
+（1）以"!"引导注释；
+（2）每行可132字符，行代码放在每行最前面；
+（3）以&续行，放在该行末或下行初。
+1.3 Fortran和C/C++等大多数语言的不同
+（1）不分大小写
+（2）每句末尾不必要写分号
+（3）程序代码命令间的空格没有意义
+（4）不像C，Fortran不使用{ }
+（5）数据类型多出了复数和逻辑判断类型。比如复数类型
+（6）多出了乘幂运算（**）。乘幂除了整数还可以是实数形式。如开方，开立方
+（7）数组有一些整体操作的功能；可以方便的对部分元素进行操作
+（8）有些情况下可以声明大小待定的数组，很实用的功能
+
+1.4 简单的 Fortran 程序分析
+Fortran 程序的基本结构：
+（1）一个 Fortran 源程序由一个或多个程序单位组成，每个独立的程序单位以"end"语句结束。
+（2）每个程序单位包括若干行（不能一行写多条语句，但可以几行写一条语句）。
+（3）语句前可不设标号，也可根据需要设标号。
+（4）各类语句在程序单位中的位置有一定规则。
+（5）程序必须按规定格式书写。
+
+1.5 FORTRAN 源程序的书写格式
+Fortran77 源程序必须按以下格式书写：
+（1）每行只能在 80 列内书写，并把 80 列分为 4 个区。
+（2）1～5 列：标号区（ 1～5 位整数；第 1 列为"*"或"c"时，为注释行）
+（3）第 6 列：续行标志区（非空格或非零字符；最多 19 个续行）
+（4）7～72 列：语句区（书写语句；一行只能写一条语句）
+（5）73～80 列：语句注释区（一般作编号注释）
+
+1.6 编译环境配置
+参考：Fortran编程——VScode配置
+
+2. Fortran数据类型和变量
+2.1 数据类型
+Fortran 处理六种类型：
+（1）整型（Integer）
+（2）实型（Real）
+（3）双精度（Double precision）
+（4）复型（Complex）
+（5）逻辑型（Logical）
+（6）字符型（Character）
+
+2.2 变量
+2.2.1 命名规则
+（1）变量名的第一个字符必须是字母；
+（2）在第一个字符后可跟 1～5 个字母或数字。如：x，m1，total，k123，…
+
+注意几点：
+（1）变量名不区分大小写字母。如：TOTAL，Total，total 代表同一变量
+（2）变量名中的空格不起作用。如：abc，a bc，ab c，a b c 代表同一变量
+（3）允许变量名与语言中具有特定含义的字（“保留字”）同名。但建议不要使用。如：sin、read、end …
+（4）尽量"见名知义"，如:root、aver、result 等
+（5）它不能超过31个字符。
+
+2.2.2 隐含约定（I～N 规则）
+以 i、j、k、l、m、n 开头的变量为整型变量，以其它字母开头的变量为实型变量（“I～N 规则”）如：
+
+imax，m5，number，...	为整型变量； 
+v，h2，aver，...	为实型变量。
+1
+2
+注：方便，但只能用来区分整型与实型。
+
+2.2.3 IMPLICIT 语句（隐式说明语句）
+可以用 IMPLICIT 语句将某一字母开头的全部变量指定为所需的类型，还可以用一个 IMPLICIT 语句同时指定几种类型。例如：
+
+implicit integer (a，c，t-v) 
+implicit real (i，j) 
+implicit integer (a，b)，real(i,k)，integer (x-z)
+1
+2
+3
+2.2.4 变量声明语法
+变量在类型声明语句中的程序（或子程序）的开头声明。 变量声明的语法如下：
+
+type-specifier :: variable_name
+1
+例如 (For example)
+
+integer :: total  	
+real :: average 
+complex :: cx  
+logical :: done 
+character(len = 80) :: message ! a string of 80 characters
+1
+2
+3
+4
+5
+稍后您可以为这些变量赋值，例如，
+
+total = 20000  
+average = 1666.67   
+done = .true.   
+message = “A big Hello from IOWIKI” 
+cx = (3.0, 5.0) ! cx = 3.0 + 5.0i
+1
+2
+3
+4
+5
+您还可以使用内部函数cmplx,将值赋给复杂变量 -
+
+cx = cmplx (1.0/2.0, -7.0) ! cx = 0.5 – 7.0i 
+cx = cmplx (x, y) ! cx = x + yi
+1
+2
+字符类型
+字符类型存储字符和字符串。 字符串的长度可以由len说明符指定。 如果未指定长度，则为1。
+
+character (len = 40) :: name  
+name = “Zara Ali”
+1
+2
+2.4 第一个Fortran程序
+按照国际惯例，写第一个Fortran程序，“Hello world”。保存为hello.f
+
+      program HelloWorld
+      print *,'Hello,World!'
+      read(*,*)
+      end
+1
+2
+3
+4
+注意：如果是f90直接忽略代码前面的空格，f77编码必须如上，否则无法编译通过。
+
+Fortran程序由一组程序单元组成，如主程序，模块和外部子程序或过程。每个程序包含一个主程序，可能包含也可能不包含其他程序单元。 主程序的语法如下 -
+
+program program_name
+implicit none      
+! type declaration statements      
+! executable statements  
+end program program_name
+1
+2
+3
+4
+5
+请注意 ：
+
+所有Fortran程序都以关键字program开头，以关键字end program结尾，后跟end program，名称。
+implicit none语句允许编译器检查是否正确声明了所有变量类型。 您必须始终在每个程序的开头使用implicit none。较旧版本的Fortran允许一种称为隐式类型的功能，即您不必在使用前声明变量。 如果未声明变量，则其名称的第一个字母将确定其类型。以i，j，k，l，m或n开头的变量名称被认为是整数变量，其他变量是实变量。 但是，您必须声明所有变量，因为它是良好的编程习惯。 为此你用声明开始你的程序implicit none，此语句将关闭隐式类型。
+Fortran中的注释以感叹号（！）开头，因为编译器会忽略此后的所有字符（字符串除外）。
+print *命令在屏幕上显示数据。
+参考：Fortran - Basic 语法
+
+3. 程序编译
+前提需要安装好Fortran开发环境。
+在终端中输入
+
+gfortran hello.f -o hello
+1
+如果是windows系统这样就会生成一个hello.exe程序，如果是linux系统就会生成一个不带后缀名的hello可执行程序。执行结果，在终端中输入
+
+./hello.exe
+或者
+./hello
+1
+2
+3
+3.1 Fortran - Basic 语法
+每个程序包含一个主程序，可能包含也可能不包含其他程序单元。 主程序的语法如下：
+
+! 所有Fortran程序都以关键字program开头，以关键字end program,后跟end program,名称。
+! implicit none语句允许编译器检查是否正确声明了所有变量类型。 您必须始终在每个程序的开头使用implicit none 。
+! Fortran中的注释以感叹号（!）开头，因为编译器会忽略此后的所有字符（字符串除外）。
+! print *命令在屏幕上显示数据。
+! 压缩代码行是保持程序可读性的好方法。
+! Fortran允许使用大写和小写字母。 除字符串文字外，Fortran不区分大小写。
+
+        program program_name
+        	! 关闭隐式类型
+            implicit none      
+            ! type declaration statements      
+            ! executable statements  
+            print *,"Hello,World!"
+            read(*,*)
+        end program program_name
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+让我们编写一个程序，添加两个数字并打印结果 ：
+
+        program addNumbers
+            ! This simple program adds two numbers
+            implicit none
+            ! Type declarations
+            real :: a, b, result
+            ! Executable statements
+            a = 12.0
+            b = 15.0
+            result = a + b
+            print *, 'The total is ', result
+        end program addNumbers
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+3.2 Fortran变量用法实列
+以下示例演示了屏幕上的变量声明，分配和显示 -
+
+        program variableTesting
+            implicit none
+            ! declaring variables 变量声明
+            integer :: total      
+            real :: average 
+            complex :: cx  
+            logical :: done 
+            character(len=80) :: message ! a string of 80 characters
+
+            !assigning values 赋值
+            total = 20000  
+            average = 1666.67   
+            done = .true.   
+            message = "A big Hello from IOWIKI" 
+            cx = (3.0, 5.0) ! cx = 3.0 + 5.0i
+            Print *, total
+            Print *, average
+            Print *, cx
+            Print *, done
+            Print *, message
+        end program variableTesting
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+3.3 Fortran - 常量
+常量是指程序在执行期间无法更改的固定值。命名常量具有值和名称。命名常量应在程序或过程的开头声明，就像变量类型声明一样，指示其名称和类型。使用parameter属性声明命名常量。例如，
+
+3.3.1 例子 (Example)
+以下程序计算重力作用下垂直运动引起的位移。
+
+real, parameter :: pi = 3.1415927
+1
+        program gravitationalDisp
+
+            ! this program calculates vertical motion under gravity 
+            implicit none  
+
+            ! gravitational acceleration
+            real, parameter :: g = 9.81   
+            
+            ! variable declaration
+            real :: s ! displacement   
+            real :: t ! time  
+            real :: u ! initial speed  
+            
+            ! assigning values 
+            t = 5.0   
+            u = 50  
+            
+            ! displacement   
+            s = u * t - g * (t**2) / 2  
+            
+            ! output 
+            print *, "Time = ", t
+            print *, 'Displacement = ',s  
+        
+        end program gravitationalDisp
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+3.4 Fortran - 运算符
+Fortran提供以下类型的运算符 ：算术运算符、关系运算符、逻辑运算符。
+
+3.4.1 算术运算符 (Arithmetic Operators)
+下表显示了Fortran支持的所有算术运算符。 假设变量A=5，变量B=3然后
+
+操作	描述	值
++	加法运算符，添加两个操作数。	A + B将给出8
+-	减法运算符，从第一个减去第二个操作数。	A - B将给2
+*	乘法运算符，将两个操作数相乘。	A * B将给出15
+/	除法运算符，用除分子除分子。	A/B将给1
+**	指数运算符，将一个操作数提升到另一个操作数。	A ** B将给出125
+3.4.1.1 例子 (Example)
+! 尝试以下示例来了解Fortran中可用的所有算术运算符 -
+
+        program arithmeticOp
+            ! this program performs arithmetic calculation
+            implicit none  
+            ! variable declaration
+            integer :: a, b, c
+            ! assigning values 
+            a = 5   
+            b = 3  
+            ! Exponentiation 
+            c = a ** b 
+            ! output 
+            print *, "c = ", c
+            ! Multiplication  
+            c = a * b 
+            ! output 
+            print *, "c = ", c
+            ! Division  
+            c = a/b 
+            ! output 
+            print *, "c = ", c
+            ! Addition
+            c = a + b 
+            ! output 
+            print *, "c = ", c
+            ! Subtraction 
+            c = a - b 
+            ! output 
+            print *, "c = ", c
+        end program arithmeticOp
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+3.4.2 关系运算符 (Relational Operators)
+下表显示了Fortran支持的所有关系运算符。 假设变量A=10，变量B=20，则
+
+操作	符号	描述	结果
+==	.eq.	检查两个操作数的值是否相等，如果是，则条件变为真。	（A == B）不是真的。
+/=	.ne.	检查两个操作数的值是否相等，如果值不相等则条件变为真。	（A！= B）是真的。
+>	.gt.	检查左操作数的值是否大于右操作数的值，如果是，则条件变为真。	（A> B）不是真的。
+<	.lt.	检查左操作数的值是否小于右操作数的值，如果是，则条件变为真。	(A < B) 为真
+>=	.ge.	检查左操作数的值是否大于或等于右操作数的值，如果是，则条件变为真。	（A> = B）不是真的。
+<=	.le.	检查左操作数的值是否小于或等于右操作数的值，如果是，则条件变为真。	（A <= B）是真的。
+3.4.3 逻辑运算符 (Logical Operators)
+Fortran中的逻辑运算符仅适用于逻辑值.true 和.false。
+
+下表显示了Fortran支持的所有逻辑运算符。 假设变量A .true。 变量B .false。 那么 -
+
+操作	描述	结果
+.and.	称为逻辑AND运算符。 如果两个操作数都不为零，则条件成立。	（A.and.B）是假的。
+.or.	称为逻辑OR运算符。 如果两个操作数中的任何一个非零，则条件变为真。	（A.or.B）是真的。
+.not.	称为逻辑非运算符。 用于反转其操作数的逻辑状态。 如果条件为真，则Logical NOT运算符将为false。	！（A.not.B）是真的。
+.eqv.	称为逻辑等效运算符。 用于检查两个逻辑值的等效性。	（A .eqv.B）是假的。
+.neqv.	称为逻辑非等价运算符。 用于检查两个逻辑值的非等价性。	（A .neqv.B）是真的。
+3.4.3.1 例子 (Example)
+        program logicalOp
+            ! this program checks logical operators
+            implicit none  
+            ! variable declaration
+            logical :: a, b
+            ! assigning values 
+            a = .true.   
+            b = .false. 
+            if (a .and. b) then
+                print *, "Line 1 - Condition is true"
+            else
+                print *, "Line 1 - Condition is false"
+            end if
+            if (a .or. b) then
+                print *, "Line 2 - Condition is true"
+            else
+                print *, "Line 2 - Condition is false"
+            end if
+            ! changing values 
+            a = .false.   
+            b = .true. 
+            if (.not.(a .and. b)) then
+                print *, "Line 3 - Condition is true"
+            else
+                print *, "Line 3 - Condition is false"
+            end if
+            if (b .neqv. a) then
+                print *, "Line 4 - Condition is true"
+            else
+                print *, "Line 4 - Condition is false"
+            end if
+            if (b .eqv. a) then
+                print *, "Line 5 - Condition is true"
+            else
+                print *, "Line 5 - Condition is false"
+            end if
+        end program logicalOp
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+3.4.4 Fortran中的运算符优先级
+运算符优先级确定表达式中的术语分组。 这会影响表达式的计算方式。 某些运算符的优先级高于其他运算符; 例如，乘法运算符的优先级高于加法运算符。
+
+3.4.4.1 例子 (Example)
+        program precedenceOp
+            ! this program checks logical operators
+            implicit none  
+            ! variable declaration
+            integer :: a, b, c, d, e
+            ! assigning values 
+            a = 20   
+            b = 10
+            c = 15
+            d = 5
+            e = (a + b) * c/d      ! ( 30 * 15 )/5
+            print *, "Value of (a + b) * c/d is :    ",  e 
+            e = ((a + b) * c)/d    ! (30 * 15 )/5
+            print *, "Value of ((a + b) * c)/d is  : ",  e 
+            e = (a + b) * (c/d);   ! (30) * (15/5)
+            print *, "Value of (a + b) * (c/d) is  : ",  e 
+            e = a + (b * c)/d;     !  20 + (150/5)
+            print *, "Value of a + (b * c)/d is  :   " ,  e 
+        end program precedenceOp
+————————————————
+
+                            版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+                        
+原文链接：https://blog.csdn.net/wokaowokaowokao12345/article/details/127088687

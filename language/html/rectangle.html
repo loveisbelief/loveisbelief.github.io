@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>计算矩形的周长和面积</title>
+	</head>
+	<body>
+		<div>
+			<p>矩形的长：<input type="text" id="x"/></p>
+			<p>矩形的宽：<input type="text" id="y"/></p>
+			<p>矩形的周长：<input type="text" id="l"/></p>
+			<p>矩形的面积：<input type="text" id="s"/></p>
+		</div>
+		<script>
+			var x=Number(prompt("请输入矩形的长x："));
+			var y=Number(prompt("请输入矩形的宽y："));
+			var l=2*(x+y);
+			var s=x*y;
+			document.getElementById("x").value=x;
+			document.getElementById("y").value=y;
+			document.getElementById("l").value=l;
+			document.getElementById("s").value=s;
+		</script>
+	</body>
+</html>

@@ -1,0 +1,7 @@
+Domain = MM-202302191016
+Computer Name = MM-202302191016
+User Name = Administrator
+=====================================
+Network drive mappings:
+=====================================
+Network printer mappings:

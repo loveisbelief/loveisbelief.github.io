@@ -1,0 +1,25 @@
+<html>
+<head>
+</head>
+<body>
+	<script type="text/javascript">
+		var grades=[[1],[1,2],[1,2,3],[1,2,3,4,5]];
+		var i=0,len=grades.length;
+		for(;i<len;i++)
+		{
+			//grades[i].sort();
+			var j=0,lenj=grades[i].length,max=grades[0],min=grades[0],sum=0,avg;
+			for(;j<lenj;j++)
+			{
+				sum+=grades[i][j];
+				if(grades[i][j]>max)
+					max=grades[i][j];
+				if(grades[i][j]<min)
+					min=grades[i][j];
+			}
+			avg=sum/lenj;
+			document.write("第"+i+"行的最大值"+max+"、最小值"+min+"和平均值"+avg+"<br/>");
+		}
+	</script>
+</body>
+</html>

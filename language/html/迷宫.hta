@@ -1,0 +1,223 @@
+<HTML>
+<HEAD>
+<TITLE>勇闯迷宫   作：VBS脚本之家</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+</HEAD>
+<BODY>
+<BASEFONT face=verdana size=2>
+<SCRIPT>
+function ShowMenu(bMenu) {
+document.all.idFinder.style.display = (bMenu) ? "none" : "block"
+document.all.idMenu.style.display = (bMenu) ? "block" : "none"
+idML.className = (bMenu) ? "cOn" : "cOff"
+idRL.className = (bMenu) ? "cOff" : "cOn"
+return false
+}
+</SCRIPT>
+ 
+<STYLE>A.cOn {
+    FONT-WEIGHT: bolder; TEXT-DECORATION: none
+}
+#article {
+    PADDING-RIGHT: 15pt; PADDING-LEFT: 5pt; BACKGROUND: white; PADDING-BOTTOM: 0px; FONT: 12pt Verdana, geneva, arial, sans-serif; COLOR: black; PADDING-TOP: 10pt
+}
+#article P.start {
+    TEXT-INDENT: 0pt
+}
+#article P {
+    MARGIN-TOP: 0pt; FONT-SIZE: 10pt; TEXT-INDENT: 12pt
+}
+#article #author {
+    MARGIN-BOTTOM: 5pt; TEXT-INDENT: 0pt; FONT-STYLE: italic
+}
+#pageList P {
+    PADDING-TOP: 10pt
+}
+#article H3 {
+    FONT-WEIGHT: bold
+}
+#article DL {
+    FONT-SIZE: 10pt
+}
+UL {
+    FONT-SIZE: 10pt
+}
+OL {
+    FONT-SIZE: 10pt
+}
+</STYLE>
+ 
+<SCRIPT>
+<!--
+function addList(url,desc) {
+if ((navigator.appName=="Netscape") || (parseInt(navigator.appVersion)>=4)) {
+var w=window.open("","_IDHTML_LIST_","top=0,left=0,width=475,height=150,history=no,menubar=no,status=no,resizable=no")
+var d=w.document
+if (!w._init) {
+d.open()
+d.write("<TITLE>Loading...</TITLE><EM>Loading...</EM>")
+d.close()
+ 
+w.opener=self
+window.status="Personal Assistant (Adding): " + desc
+} else {
+window.status=w.addOption(url,desc)
+w.focus()
+}
+}
+else
+alert("Your browser does not support the personal assistant.")
+return false
+}
+</SCRIPT>
+ 
+<STYLE type=text/css>#board TD {
+    FONT-SIZE: 2pt; WIDTH: 15pt; HEIGHT: 15pt
+}
+TD.foot {
+    FONT-SIZE: 10pt
+}
+#board TD.start {
+    BORDER-TOP: black 2px solid; FONT-SIZE: 8pt; BACKGROUND: yellow; BORDER-LEFT: black 2px solid; COLOR: red; TEXT-ALIGN: center
+}
+#board TD.end {
+    FONT-SIZE: 8pt; COLOR: green; TEXT-ALIGN: center
+}
+#message {
+    PADDING-RIGHT: 0pt; PADDING-LEFT: 0pt; PADDING-BOTTOM: 0pt; MARGIN: 0pt; PADDING-TOP: 0pt; TEXT-ALIGN: center
+}
+</STYLE>
+ 
+<SCRIPT language=JavaScript>
+    var maze = new Array()
+    var sides = new Array("Border-Top", "Border-Right")
+    for (var rows=0; rows<13; rows++)
+      maze[rows] = new Array()
+    maze[0][0] = new Array(1,1,1,1,1,1,1,1,1,1,1,1)
+    maze[0][1] = new Array(0,0,1,0,1,0,0,0,0,1,0,1)
+    maze[1][0] = new Array(1,0,0,0,1,0,1,1,1,0,1,1)
+    maze[1][1] = new Array(0,1,1,0,0,1,1,0,0,1,0,1)
+    maze[2][0] = new Array(1,0,1,0,1,0,0,1,1,0,1,1)
+    maze[2][1] = new Array(0,0,0,0,1,1,1,0,0,0,0,1)
+    maze[3][0] = new Array(0,1,1,1,1,1,0,0,0,0,1,1)
+    maze[3][1] = new Array(1,0,0,1,0,0,0,1,1,0,0,1)
+    maze[4][0] = new Array(0,0,0,0,0,0,1,1,1,1,1,1)
+    maze[4][1] = new Array(1,1,1,1,1,0,0,0,0,0,1,1)
+    maze[5][0] = new Array(0,0,0,0,1,0,1,1,1,1,0,0)
+    maze[5][1] = new Array(1,1,1,1,1,1,0,0,0,1,0,1)
+    maze[6][0] = new Array(0,0,0,0,0,0,1,1,0,1,0,1)
+    maze[6][1] = new Array(1,1,1,1,1,1,0,0,0,1,0,1)
+    maze[7][0] = new Array(1,0,1,0,0,0,1,0,1,1,0,1)
+    maze[7][1] = new Array(1,1,1,0,1,0,0,1,0,1,1,1)
+    maze[8][0] = new Array(0,0,0,1,0,0,1,1,0,0,0,0)
+    maze[8][1] = new Array(0,1,0,1,1,0,0,0,1,1,0,1)
+    maze[9][0] = new Array(0,0,0,0,0,1,1,1,1,0,1,1)
+    maze[9][1] = new Array(1,1,1,1,0,0,0,0,0,1,1,1)
+    maze[10][0] = new Array(0,0,0,0,0,1,1,1,1,1,0,0)
+    maze[10][1] = new Array(1,1,1,0,1,0,0,0,0,1,0,1)
+    maze[11][0] = new Array(0,0,1,1,1,1,1,1,1,0,0,0)
+    maze[11][1] = new Array(1,0,1,0,0,0,0,0,0,0,1,1)
+    maze[12][0] = new Array(0,0,0,0,0,1,1,1,1,0,1,0)
+    maze[12][1] = new Array(1,1,0,1,0,0,0,1,0,0,1,1)
+ 
+    function testNext(nxt) {
+      if ((board.rows[start.rows].cells[start.cols].style.backgroundColor=="blue") && (nxt.style.backgroundColor=='blue')) {
+        message.innerText="I see you changed your mind."
+        board.rows[start.rows].cells[start.cols].style.backgroundColor=""
+        return false
+      }
+      return true
+    }
+ 
+    function moveIt() {
+      if (!progress) return
+      switch (event.keyCode) {
+        case 37: // left
+          if (maze[start.rows][1][start.cols-1]==0) {
+            if (testNext(board.rows[start.rows].cells[start.cols-1]))
+              message.innerText="Going west..."
+            start.cols--
+            document.all.board.rows[start.rows].cells[start.cols].style.backgroundColor="blue"
+          } else
+          message.innerText="Ouch... you can't go west."
+ 
+          break;
+        case 38: // up
+          if (maze[start.rows][0][start.cols]==0) {
+            if (testNext(board.rows[start.rows-1].cells[start.cols]))
+              message.innerText="Going north..."
+            start.rows--
+            document.all.board.rows[start.rows].cells[start.cols].style.backgroundColor="blue"
+          } else
+          message.innerText="Ouch... you can't go north."
+ 
+          break;
+        case 39: // right
+ 
+          if (maze[start.rows][1][start.cols]==0) {
+            if (testNext(board.rows[start.rows].cells[start.cols+1]))
+              message.innerText="Going east..."
+            start.cols++
+            document.all.board.rows[start.rows].cells[start.cols].style.backgroundColor="blue"
+          }
+          else
+          message.innerText="Ouch... you can't go east."
+ 
+          break;
+        case 40: //down
+          if (maze[start.rows+1]==null) return
+          if (maze[start.rows+1][0][start.cols]==0) {
+            if (testNext(board.rows[start.rows+1].cells[start.cols]))
+              message.innerText="Going south..."
+            start.rows++
+            document.all.board.rows[start.rows].cells[start.cols].style.backgroundColor="blue"
+          } else
+          message.innerText="Ouch... you can't go south."
+ 
+          break;
+      }
+      if (document.all.board.rows[start.rows].cells[start.cols].innerText=="end") {
+        message.innerText="You Win!"
+        progress=false
+      }
+    }
+</SCRIPT>
+ 
+<P align=center>请使用键盘上的→←↑↓键进行游戏</P><BR>
+<P>
+<TABLE id=board cellSpacing=0 cellPadding=0 align=center>
+  <SCRIPT language=JavaScript>
+    for (var row = 0; row<maze.length; row++) {
+      document.write("<TR>")
+ 
+      for (var col = 0; col<maze[row][0].length; col++) {
+        document.write("<TD STYLE='")
+        for (var cell = 0; cell<2; cell++) {
+          if (maze[row][cell][col]==1)
+            document.write(sides[cell]+": 2px black solid;")
+        }
+        if ((0==col) && (0!=row))
+          document.write("border-left: 2px black solid;")
+        if (row==maze.length-1)
+          document.write("border-bottom: 2px black solid;")
+        if ((0==row) && (0==col))
+          document.write(" background-color:yellow;' class=start>start</TD>")
+        else
+         if ((row==maze.length-1) && (col==maze[row][0].length-1))
+           document.write("' class=end>end</TD>")
+         else
+          document.write("'> </TD>")
+      }
+      document.write("</TR>")
+    }
+    var start = new Object
+    start.rows = 0
+    start.cols = 0
+    progress=true
+    document.onkeydown = moveIt;
+  </SCRIPT>
+  <TBODY></TBODY></TABLE>
+<P id=message>
+</P></BASEFONT>
+</BODY>
+</HTML>

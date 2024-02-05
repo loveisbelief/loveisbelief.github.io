@@ -1,0 +1,47 @@
+function GetCmdArgs(cmdArgs)
+{
+//本函数解析命令行参数
+//1.左引号前面必须是空格，否则引号应视作参数内容，而非边界
+//2.右引号后面必须是空格，否则引号应视作参数内容，而非边界
+//3.最后面的那个参数，如果引号边界没有配对，即无右引号，那么
+//  最后的那个参数的左引号当重新认定为内容，而非边界
+//4.多个空格间隔两个参数，防止后面的空格间隔符被归入内容中
+//5.防止命令行参数最后有多个无意义空格的情况
+    var args=new Array(''),isComplete=true
+    for(var i=0;i<cmdArgs.length;i++)
+    {
+        var c=cmdArgs.charAt(i);
+        if(c=='"')
+            if(isComplete)
+                if(i==0)
+                    isComplete=!isComplete;
+                else
+                    if(cmdArgs.charAt(i-1)==" ")
+                        isComplete=!isComplete;
+                    else
+                        args[args.length-1]+=c;
+            else
+                if(i==cmdArgs.length-1)
+                    isComplete=!isComplete;
+                else
+                    if(cmdArgs.charAt(i+1)==" ")
+                        isComplete=!isComplete;
+                    else
+                        args[args.length-1]+=c;
+
+        else
+            if(c==" "&&isComplete&&args[args.length-1]!="")
+                args.push('')
+            else
+                args[args.length-1]+=c;
+    }
+    if(!isComplete)
+    {
+        var arg='"'+args.pop();
+        if(arg.indexOf(" ")!=-1)
+            args=args.concat(arg.split(" "));
+    }
+    if(args[args.length-1]=="")
+        args.pop();
+    return args
+}

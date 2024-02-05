@@ -1,0 +1,108 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script type="text/javascript">
+		var a="123";
+		var b=a+6;
+		document.write("没用Number转换前："+b);
+		document.write("<br/>");
+		c=Number(a)+6;
+		document.write("用Number转换后:"+c);
+		document.write("<br/>");
+		c=parseInt(a)+6;
+		document.write("用parseInt转换后:"+c);
+		document.write("<br/>");
+		c=parseFloat(a)+6;
+		document.write("用parseFloat转换后:"+c);
+		document.write("<br/>");
+		document.write("<hr/>");
+		var x=33;
+		var y=x+66;
+		document.write("没用String转换前:"+y);
+		document.write("<br/>");
+		var m=String(x)+66;
+		document.write("用String转换后:"+m);
+		document.write("<br/>");
+		document.write("<hr/>");
+		var t=10;
+		var f=0;
+		var b1=Boolean(t);
+		var b2=Boolean(f);
+		document.write("用Boolean转换后:t="+b1+",f="+b2);
+		document.write("<br/>");
+		document.write("<hr/>");
+		var i=1;
+		var j=0;
+		var k=i/j;
+		document.write(k);
+		document.write("<br/>");
+		var s1="abc";
+		var l=i/s1;
+		document.write(l);
+		document.write("<hr/>");
+		var m=2;
+		document.write(i/m);
+		document.write("<hr/>");
+		document.write(m!="2");
+		document.write("<br/>");
+		document.write(m!=="2");
+		document.write("<hr/>");
+		var age=89;
+		//inputbox();
+		var voteable=age<18?"太年轻":"足够成熟"
+		document.write(voteable);
+		document.write("<hr/>");
+		document.write(typeof b);//alert(typeof b)
+
+	</script>
+</head>
+<body>
+	str="string"
+	number=123
+	bool
+	n=null
+<p>
+		object how:
+		array
+		array location[3]
+		function howfunc
+		math howmath
+		date howdate
+		regexp howre
+		string str1
+	</p>
+		<p>
+	<script type="text/javascript">
+		//var b;
+		///alert(b);
+		///var a="ok";
+		//alert(typeof(a));
+		//alert(typeof(10));
+		//var ar=new Array();
+		//alert(ar instanceof Array);
+		//alert(Boolean(b));
+		//alert(Boolean(a));
+		//alert(Boolean(ar));
+		//sn1="10123";
+		//sn2="432";
+		//sn3="1234.534";
+		//alert(Number(sn1)-123);
+		//alert(parseInt(sn2)+68);
+//<!--
+//		alert(parseFloat(sn3));
+//-->
+		document.write("<hr/>");
+		var position=0,day=1;
+		while(position<10){
+			position+=3;
+			if(position>=10)
+				break;
+			position-=2;
+			day++;
+		}
+		document.write("蜗牛第"+day+"天爬出！");
+	</script>
+</p>
+</body>
+</html>

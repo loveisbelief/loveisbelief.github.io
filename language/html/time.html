@@ -1,0 +1,36 @@
+<script>
+	var now=new Date();
+	var t=new Date(now-1);
+	var day1970=new Date(1970,0,1);
+	
+	dispTime(t);
+	function twoDigit(t){
+		return t<10?'0'+t:t;
+	}
+	function threeDigit(t){
+		return t<100?(t<10?'00'+t:t):t;
+	}
+	function dispTime(dt){
+		//document.bgColor="red";
+		//var old=new Date()
+		//var now=new Date(dt.getFullYear(),dt.getMonth(),dt.getDate(),dt.getHours(),dt.getMinutes(),dt.getSeconds(),dt.getMilliseconds());
+		var now= new Date(dt);
+		//now=dt;
+		year=now.getFullYear();
+		month=twoDigit(now.getMonth()+1);
+		//alert(month);
+		date=twoDigit(now.getDate());
+		ymd=""+year+"年"+month+"月"+date+"日";
+		hour=twoDigit(now.getHours());
+		minute=twoDigit(now.getMinutes());
+		second=now.getSeconds();
+		second=twoDigit(second);
+		msecond=threeDigit(now.getMilliseconds());
+		hms=hour+":"+minute+":"+second+":"+msecond;
+		document.write(ymd+hms);
+		document.write("<br/>");
+		time=now.getTime();
+		//document.write(time);
+		document.bgColor="purple";
+	}
+</script>
