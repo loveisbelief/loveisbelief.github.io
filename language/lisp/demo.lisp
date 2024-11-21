@@ -2,3 +2,7 @@
 (print "abc好ok")
 (+ 3 5)
 (format t "ancdef")
+(car (format t "hello"))
+(car (format t "(A B)"))
+'(car (format t "((A B)C D)"))
+'(+ 2 3)
