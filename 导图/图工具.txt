@@ -1,0 +1,3 @@
+概念图工具Visual Paradigm 
+思维导图mindmanager
+FreeMind：开源免费，功能全面。
