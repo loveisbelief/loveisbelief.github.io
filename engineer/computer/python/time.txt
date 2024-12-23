@@ -1,0 +1,264 @@
+Python的time模块——各种与时间相关的函数
+1. 获取当前时间
+2. 时间格式化
+3. 延时执行
+4. 时间戳运算
+5. 计算代码执行时间
+6. 转换为指定时区的时间
+7. 定时器（每隔一定时间执行一次任务）
+8. 获取时间戳的日期部分
+Python的time模块提供了各种与时间相关的函数，包括获取当前时间、处理时间间隔、执行时间测量等。以下是对time模块中一些常用功能的详细介绍、用法、常见用法以及示例代码和运行结果。
+
+1. 获取当前时间
+time.time(): 返回自纪元（1970年1月1日00:00:00 UTC）以来的秒数，通常称为Unix时间戳。
+time.localtime(): 返回一个表示本地时间的time.struct_time对象。
+time.gmtime(): 返回一个表示协调世界时（UTC）的time.struct_time对象。
+import time
+
+# 获取当前时间戳
+timestamp = time.time()
+print("当前时间戳:", timestamp)
+
+# 获取本地时间
+local_time = time.localtime()
+print("本地时间:", local_time)
+
+# 获取UTC时间
+utc_time = time.gmtime()
+print("UTC时间:", utc_time)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+'
+运行运行
+运行结果（取决于你的时区和当前时间）：
+
+当前时间戳: 1715833304.1631322
+本地时间: time.struct_time(tm_year=2024, tm_mon=5, tm_mday=16, tm_hour=12, tm_min=21, tm_sec=44, tm_wday=3, tm_yday=137, tm_isdst=0)
+UTC时间: time.struct_time(tm_year=2024, tm_mon=5, tm_mday=16, tm_hour=4, tm_min=21, tm_sec=44, tm_wday=3, tm_yday=137, tm_isdst=0)
+
+1
+2
+3
+4
+2. 时间格式化
+time.strftime(format, time_tuple): 将time.struct_time对象格式化为字符串。
+time.strptime(string, format): 将字符串解析为time.struct_time对象。
+import time
+
+# 格式化本地时间
+formatted_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+print("格式化后的本地时间:", formatted_time)
+
+# 解析时间字符串
+parsed_time = time.strptime("2021-09-10 10:22:47", "%Y-%m-%d %H:%M:%S")
+print("解析后的时间:", parsed_time)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+'
+运行运行
+运行结果：
+
+格式化后的本地时间: 2024-05-16 12:22:02
+解析后的时间: time.struct_time(tm_year=2021, tm_mon=9, tm_mday=10, tm_hour=10, tm_min=22, tm_sec=47, tm_wday=4, tm_yday=253, tm_isdst=-1)
+
+
+1
+2
+3
+4
+3. 延时执行
+time.sleep(seconds): 使程序暂停指定的秒数。
+import time
+
+print("开始休眠...")
+time.sleep(2)  # 休眠2秒
+print("休眠结束!")
+1
+2
+3
+4
+5
+'
+运行运行
+运行结果：
+
+开始休眠...
+（等待2秒）
+休眠结束!
+1
+2
+3
+4. 时间戳运算
+由于时间戳是浮点数，可以直接进行加减运算来表示时间间隔。
+
+import time
+
+# 获取当前时间戳
+now = time.time()
+
+# 10秒后
+future = now + 10
+print("10秒后的时间戳:", future)
+
+# 10秒前
+past = now - 10
+print("10秒前的时间戳:", past)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+'
+运行运行
+运行结果：
+
+10秒后的时间戳: 1715833358.9650567
+10秒前的时间戳: 1715833338.9650567
+1
+2
+5. 计算代码执行时间
+你可以使用 time.time() 来计算一段代码的执行时间。
+
+import time
+
+start_time = time.time()
+
+# 这里是你要计算执行时间的代码
+for i in range(1000000):
+    pass
+
+end_time = time.time()
+execution_time = end_time - start_time
+print(f"代码执行时间: {execution_time} 秒")
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+'
+运行运行
+运行结果：
+
+代码执行时间: 0.03800845146179199 秒
+1
+6. 转换为指定时区的时间
+Python的 time 模块本身并不直接支持时区转换，但你可以使用 pytz 库或Python 3.9+中的 zoneinfo 模块来做到这一点。以下是一个使用 pytz 的示例：
+
+import time
+import pytz
+from datetime import datetime
+
+# 获取当前UTC时间
+utc_now = datetime.utcnow()
+print("UTC时间:", utc_now)
+
+# 转换为纽约时间（EST/EDT）
+new_york_tz = pytz.timezone('America/New_York')
+new_york_time = utc_now.astimezone(new_york_tz)
+print("纽约时间:", new_york_time)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+'
+运行运行
+运行结果：
+
+UTC时间: 2024-05-16 04:24:15.237127
+纽约时间: 2024-05-15 16:24:15.237127-04:00
+1
+2
+注意：在运行上述代码之前，你需要先安装 pytz 库，可以使用 pip install pytz 命令进行安装。Python第三方库的安装和导入
+
+7. 定时器（每隔一定时间执行一次任务）
+你可以使用 time.sleep() 和一个循环来创建一个简单的定时器。
+
+import time
+
+def timer_task():
+    print("定时任务执行中...")
+
+while True:
+    timer_task()
+    time.sleep(5)  # 每5秒执行一次
+
+# 注意：上面的代码会无限循环，你可能需要一种方式来中断它，比如设置一个标志变量或使用try/except捕获KeyboardInterrupt异常。
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+8. 获取时间戳的日期部分
+如果你有一个时间戳并且只想获取其日期部分，你可以将时间戳转换为 datetime 对象，然后提取日期。
+
+import time
+from datetime import datetime
+
+timestamp = time.time()
+dt_object = datetime.fromtimestamp(timestamp)
+date_only = dt_object.date()
+print("日期部分:", date_only)
+1
+2
+3
+4
+5
+6
+7
+'
+运行运行
+运行结果：
+
+日期部分: 2024-05-16
+1
+这些示例展示了 time 模块在Python中的一些常见用法。根据你的具体需求，你可能还需要结合其他库或模块来实现更复杂的时间处理任务。
+注意：这里只是简单地对时间戳进行了加减，但结果仍然是时间戳，而不是人类可读的日期时间格式。如果你需要将其转换为可读的格式，可以使用time.localtime()或time.gmtime()结合time.strftime()进行格式化。
+————————————————
+
+                            版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+                        
+原文链接：https://blog.csdn.net/qq_53810226/article/details/138921242

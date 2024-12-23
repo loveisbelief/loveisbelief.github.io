@@ -1,0 +1,16 @@
+item_one=1;
+total=['item_one','item_two','item_three'];
+print(item_one,total);
+a=input("please input a number.");
+print(type(a));
+print(id(a));
+a=eval(a);
+print(id(a));
+b=input("please input another number:");
+b=eval(b);
+print(a,end="+");
+print(b,end="=");
+print(a+b);
+print("a",end=" ");
+print("b");
+#exit();
